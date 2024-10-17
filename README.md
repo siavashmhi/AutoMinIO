@@ -5,10 +5,10 @@ This project provides an end-to-end automation solution using Ansible for deploy
 ![minio high level design](./images/minio-design.jpg "minio high level design")
 
 ## Key components of the project:
-   1. Ansible Playbooks: Automate the deployment and configuration of MinIO nodes.
-   2. Docker Compose: Used for container platform, ensuring MinIO instances run in isolated environments.
-   3. Traefik: Acts as a reverse proxy and handles SSL termination for secure access to MinIO endpoints.
-   4. Bash Script (replication.sh): A custom script that configures the active-active replication between the two buckets in two MinIO instances, ensuring data synchronization across both sites.
+1. Ansible Playbooks: Automate the deployment and configuration of MinIO nodes.
+2. Docker Compose: Used for container platform, ensuring MinIO instances run in isolated environments.
+3. Traefik: Acts as a reverse proxy and handles SSL termination for secure access to MinIO endpoints.
+4. Bash Script (replication.sh): A custom script that configures the active-active replication between the two buckets in two MinIO instances, ensuring data synchronization across both sites.
 
 ### Step 1: Clone the Repository
 
