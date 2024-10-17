@@ -9,7 +9,7 @@ MINIO2_API_SUB_DOMAIN: "minioapi2" # sub domain for minio api
 MINIO2_WEB_PANEL_SUB_DOMAIN: "minio2" # sub domain for minio web panel
 TRAEFIK2_SUB_DOMAIN: "traefik2" # sub domain for traefik web panel
 
-MINIO_BOCKET_NAME: "backup" # your bucket name in minio 
+MINIO_BUCKETS: ("backup" "data" "database") # bucket names you want to created. 
 
 ROOT_USER: "siavash"
 ROOT_PASSWORD: "4YJ97rJviWDPJ2mTEGxsXT4e4kHRmh"
