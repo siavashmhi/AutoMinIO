@@ -32,10 +32,13 @@
   template:
     src: daemon.j2
     dest: /etc/docker/daemon.json
-  notify: restart docker
 
 - name: start and enable docker
   service:
     name: docker
     state: started
-    
+
+- name: restart docker
+  service:
+    name: docker
+    state: restarted
