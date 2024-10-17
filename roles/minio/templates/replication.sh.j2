@@ -1,0 +1,83 @@
+#!/bin/bash
+
+# Main variables
+ACCESS_KEY="{{ MINIO_ACCESS_KEY }}"
+SECRET_KEY="{{ MINIO_SECRET_KEY }}"
+BUCKET_NAME="kubernetes"
+PRIORITY=1
+
+# URLs for MinIO endpoints
+MINIO1_URL="https://{{ MINIO1_API_SUB_DOMAIN }}.{{ DOMAIN_ADDR }}"
+MINIO2_URL="https://{{ MINIO2_API_SUB_DOMAIN }}.{{ DOMAIN_ADDR }}"
+
+# Helper function to check for errors and exit if a command fails
+check_command() {
+  if [ $? -ne 0 ]; then
+    echo "Error: $1 failed."
+    exit 1
+  else
+    echo "$1 succeeded."
+  fi
+}
+
+# Function to set an alias for MinIO
+set_minio_alias() {
+  local alias_name=$1
+  local url=$2
+  local access_key=$3
+  local secret_key=$4
+
+  echo "Setting alias for $alias_name..."
+  mc alias set "$alias_name" "$url" "$access_key" "$secret_key"
+  check_command "Alias set for $alias_name"
+}
+
+# Function to create a bucket
+create_bucket() {
+  local alias_name=$1
+  local bucket_name=$2
+
+  echo "Creating bucket $bucket_name on $alias_name..."
+  mc mb "$alias_name/$bucket_name"
+  check_command "Bucket creation on $alias_name"
+}
+
+# Function to enable versioning on a bucket
+enable_versioning() {
+  local alias_name=$1
+  local bucket_name=$2
+
+  echo "Enabling versioning on $bucket_name (on $alias_name)..."
+  mc version enable "$alias_name/$bucket_name"
+  check_command "Versioning enabled on $alias_name/$bucket_name"
+}
+
+# Function to add replication between two buckets
+add_replication() {
+  local source_alias=$1
+  local source_bucket=$2
+  local target_alias=$3
+  local target_bucket=$4
+  local priority=$5
+
+  echo "Adding replication from $source_alias/$source_bucket to $target_alias/$target_bucket..."
+  mc replicate add "$source_alias/$source_bucket" --remote-bucket "$target_alias/$target_bucket" --priority "$priority"
+  check_command "Replication setup from $source_alias to $target_alias"
+}
+
+# Set aliases for minio1 and minio2
+set_minio_alias "minio1" "$MINIO1_URL" "$ACCESS_KEY" "$SECRET_KEY"
+set_minio_alias "minio2" "$MINIO2_URL" "$ACCESS_KEY" "$SECRET_KEY"
+
+# Create buckets on minio1 and minio2
+create_bucket "minio1" "$BUCKET_NAME"
+create_bucket "minio2" "$BUCKET_NAME"
+
+# Enable versioning on both buckets
+enable_versioning "minio1" "$BUCKET_NAME"
+enable_versioning "minio2" "$BUCKET_NAME"
+
+# Set up replication from minio1 to minio2
+add_replication "minio1" "$BUCKET_NAME" "minio2" "$BUCKET_NAME" "$PRIORITY"
+
+echo "All tasks completed successfully."

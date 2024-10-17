@@ -1,0 +1,66 @@
+# basic package list for installation
+packages:
+  - sysstat
+  - wget
+  - git
+  - vim
+  - nano
+  - bash-completion
+  - curl
+  - htop
+  - iftop
+  - jq
+  - ncdu
+  - unzip
+  - net-tools
+  - dnsutils
+  - atop
+  - sudo
+  - ntp
+  - fail2ban
+  - software-properties-common
+  - apache2-utils
+  - tcpdump
+  - telnet
+  - axel
+  - iptables-persistent
+  - ntp
+  - auditd
+  - libpwquality-common
+  - cracklib-runtime
+  - python-is-python3
+  - tree
+
+# sshd configuration
+sshd_config:
+  Port: "{{ ansible_port }}"
+  ListenAddress: 0.0.0.0
+  PermitRootLogin: without-password
+  PasswordAuthentication: "yes"
+  AllowUsers: root
+  AllowGroups: root
+
+
+# setion timeout setting (seconds)
+timeout_time: 600
+
+# auditd vars
+auditd_apply_audit_rules: 'yes'
+auditd_action_mail_acct: root
+auditd_admin_space_left_action: suspend
+auditd_disk_error_action: suspend
+auditd_disk_full_action: suspend
+auditd_max_log_file: 8
+auditd_max_log_file_action: keep_logs
+auditd_mode: 1
+auditd_num_logs: 5
+auditd_space_left: 75
+auditd_space_left_action: email
+grub_audit_backlog_cmdline: audit_backlog_limit=8192
+grub_audit_cmdline: audit=1
+
+# Limit.conf variables
+limit_nofile_hard: 1024
+limit_nofile_soft: 512
+limit_nproc_hard: 1024
+limit_nproc_soft: 512

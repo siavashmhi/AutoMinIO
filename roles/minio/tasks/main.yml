@@ -1,0 +1,78 @@
+- name: Create MinIO data directory
+  file:
+    path: "/opt/minio"
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Copy Docker Compose file
+  template:
+    src: docker-compose.yml.j2
+    dest: /opt/minio/docker-compose.yml
+
+- name: Copy Docker Compose file
+  template:
+    src: .env.j2
+    dest: /opt/minio/.env 
+
+- name: Create Docker network
+  docker_network:
+    name: web_net
+    driver: bridge
+    state: present
+
+- name: Start MinIO service using Docker Compose
+  community.docker.docker_compose_v2:
+    project_src: "/opt/minio"
+    files:
+      - docker-compose.yml
+
+- name: Install dependencies (wget)
+  apt:
+    name: wget
+    state: present
+    update_cache: yes
+
+- name: Download MinIO Client (mc) with curl
+  shell: |
+    curl -o /usr/local/bin/mc https://dl.min.io/client/mc/release/linux-amd64/mc
+    chmod +x /usr/local/bin/mc
+  args:
+    creates: /usr/local/bin/mc
+
+- name: Verify mc installation
+  command: mc --version
+  register: mc_version
+  ignore_errors: true
+
+- name: Ensure mc is installed
+  debug:
+    msg: "MinIO Client (mc) version: {{ mc_version.stdout }}"
+  when: mc_version.rc == 0 
+
+- name: Ensure MinIO containers are running
+  docker_container_info:
+    name: "minio"
+  register: result
+
+- name: Debug MinIO containers
+  debug:
+    var: result
+
+- name: Copy the replication script to the server
+  template:
+    src: replication.sh.j2
+    dest: /opt/replication.sh
+    mode: '0755'
+  when: inventory_hostname == 'minio1' 
+
+- name: Run the replication script using shell module
+  shell: /opt/replication.sh
+  when: inventory_hostname == 'minio1'
+  register: script_output
+
+- name: Debug replication.sh script
+  debug:
+    var: script_output
+  when: inventory_hostname == 'minio1'

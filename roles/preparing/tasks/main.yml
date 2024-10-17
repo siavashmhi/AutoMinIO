@@ -1,0 +1,20 @@
+---
+- name: insall package
+  import_tasks: packages.yml
+  tags: install_packages
+  
+- name: change limit.conf
+  import_tasks: limits.yml
+  tags: tuning
+
+- name: configure ssh service
+  import_tasks: hardening.yaml
+  tags: hardening
+
+- name: host file configure
+  import_tasks: hosts.yml
+  tags: hardening
+
+- name: fstab config
+  import_tasks: fstab.yml
+  tags: hardening

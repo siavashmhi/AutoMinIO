@@ -1,0 +1,23 @@
+---
+- name: Stop and Disable ufw service if started
+  ansible.builtin.service:
+    name: ufw
+    state: stopped
+    enabled: no
+
+- name: Make timout configuration file.
+  template:
+    src: timeout.j2
+    dest: /etc/profile.d/timout-settings.sh
+
+- name: Set timezone to Asia/Tehran
+  community.general.timezone:
+    name: Asia/Tehran
+  notify: Restart ntp
+
+- name: Make sshd configuration file.
+  template:
+    src: sshd_config.j2
+    dest: /etc/ssh/sshd_config
+  notify: Restart ssh
+

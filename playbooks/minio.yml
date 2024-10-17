@@ -1,0 +1,12 @@
+---
+- hosts: minio-servers
+  vars:
+    ansible_ssh_private_key_file: /Users/siavashmohseni/.ssh/id_rsa
+  become: true
+  gather_facts: true
+  name: setup active-active replication minio with docker compose 
+  roles:
+    - { role: roles/preparing, become: True, tags: preparing }
+    - { role: roles/docker, bcome: True, tags: docker_setup }
+    - { role: roles/traefik, bcome: True, tags: traefik_setup }
+    - { role: roles/minio, become: True, tags: minio }
