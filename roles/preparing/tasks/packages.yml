@@ -13,11 +13,11 @@
     force_apt_get: yes
     update_cache: yes
 
-# - name: Set hostname
-#   hostname:
-#     name: '{{ inventory_hostname }}'
+- name: Set hostname
+  hostname:
+    name: '{{ inventory_hostname }}'
 
-# - name: Fix /etc/hosts
-#   template:
-#     src: "hosts.j2"
-#     dest: "/etc/hosts"
+- name: Fix /etc/hosts
+  template:
+    src: "hosts.j2"
+    dest: "/etc/hosts"
