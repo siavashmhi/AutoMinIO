@@ -15,8 +15,8 @@ This project provides an end-to-end automation solution using Ansible for deploy
 To begin, clone this repository to your local machine:
 
 ```bash
-git clone https://github.com/siavashmhi/minio-automation-code.git
-cd minio-automation-code
+git clone https://github.com/siavashmhi/AutoMinIO.git
+cd AutoMinIO
 ```
 
 ### Step 2: Modify ansible inventory.ini file
