@@ -47,6 +47,8 @@ MINIO2_API_SUB_DOMAIN: "minioapi2" # sub domain for minio api
 MINIO2_WEB_PANEL_SUB_DOMAIN: "minio2" # sub domain for minio web panel
 TRAEFIK2_SUB_DOMAIN: "traefik2" # sub domain for traefik web panel
 
+MINIO_BOCKET_NAME: "backup" # your bucket name in minio 
+
 ROOT_USER: "siavash"
 ROOT_PASSWORD: "4YJ97rJviWDPJ2mTEGxsXT4e4kHRmh"
 MINIO_ACCESS_KEY: "siavash"
@@ -67,6 +69,6 @@ TRAEFIK_PASSWORD: "{SHA}27x1fULNcCWYFLK3dSKkc3t+I10="
 ansible-playbook -i inventory/inventory.ini playbooks/minio.yml
 ```
 
-### After all step you can see minio console with your domain for example minio.cloudflow.ir.
+### After completing all the steps, you will see the MinIO console with your domain, for example, minio.cloudflow.ir.
 
 ![minio console](./images/minio-console.png "minio console")
