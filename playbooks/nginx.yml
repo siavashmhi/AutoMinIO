@@ -1,0 +1,10 @@
+---
+- hosts: nginx-server
+  vars:
+    ansible_ssh_private_key_file: /Users/siavashmohseni/.ssh/id_rsa
+  become: true
+  gather_facts: true
+  name: setup nginx as a load balancer  
+  roles:
+    - { role: roles/preparing, become: True, tags: preparing }
+    - { role: roles/nginx, become: True, tags: nginx }

@@ -1,0 +1,46 @@
+# 1. Install NGINX and Certbot
+- name: Install NGINX and Certbot
+  apt:
+    name:
+      - nginx
+      - python3-certbot-nginx
+    state: present
+    update_cache: yes
+
+# 2. Create NGINX config without SSL for MinIO and Console
+- name: Configure NGINX without SSL for MinIO Load Balancing
+  template:
+    src: nginx_minio_no_ssl.conf.j2
+    dest: /etc/nginx/sites-available/minio.conf
+
+# 3. Enable the NGINX site configuration
+- name: Enable NGINX site
+  file:
+    src: /etc/nginx/sites-available/minio.conf
+    dest: /etc/nginx/sites-enabled/minio.conf
+    state: link
+
+# 4. Remove the default NGINX config if present
+- name: Remove default NGINX configuration
+  file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+
+# 5. Start and Test NGINX (without SSL)
+- name: Ensure NGINX is running
+  service:
+    name: nginx
+    state: started
+
+# 6. Obtain SSL certificates using Certbot
+- name: Obtain SSL certificates for MinIO and MinIO Console
+  command: >
+    certbot --nginx -d {{ MINIO_DOMAIN }} -d {{ MINIO_CONSOLE_DOMAIN }} --non-interactive --agree-tos --email siavash@gmail.com
+  notify: restart nginx
+
+# 7. Configure NGINX with SSL for MinIO and Console
+- name: Configure NGINX with SSL for MinIO Load Balancing
+  template:
+    src: nginx_minio_with_ssl.conf.j2
+    dest: /etc/nginx/sites-available/minio.conf
+  notify: restart nginx
