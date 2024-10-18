@@ -78,3 +78,28 @@ ansible-playbook -i inventory/inventory.ini playbooks/nginx.yml
 ![minio console](./images/minio-console.png "minio console")
 
 ![site replication](./images/replication.png "site replication")
+
+### Test Minio with upload fake data.
+
+You can test Minio service with upload fake data to one bucket in Minio.
+
+**Ensure Python is installed on your system.**
+**Ensure mc (minio client) is installed on your system.**
+
+```bash
+# install faker package for generate fake data.
+pip install Faker
+
+# Modify variables in script.py
+cat script.py
+
+# Configuration
+MINIO_ENDPOINT = "https://minio.cloudflow.ir"  # Change to your MinIO server endpoint
+ACCESS_KEY = "siavash"          # Replace with your MinIO access key
+SECRET_KEY = "4YJ97rJviWDPJ2mTEGxsXT4e4kHRmh"      # Replace with your MinIO secret key
+BUCKET_NAME = "backup"  # Replace with your MinIO bucket name
+NUM_FILES = 10            # Number of fake files to generate
+
+# Run python script for generate fake data and upload to minio.
+python script.py
+```
