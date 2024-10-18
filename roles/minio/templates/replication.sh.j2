@@ -44,15 +44,15 @@ create_bucket() {
 }
 
 # Set aliases for minio1 and minio2
-set_minio_alias "minio1" "$MINIO1_URL" "$ACCESS_KEY" "$SECRET_KEY"
-set_minio_alias "minio2" "$MINIO2_URL" "$ACCESS_KEY" "$SECRET_KEY"
+set_minio_alias "minio-master" "$MINIO1_URL" "$ACCESS_KEY" "$SECRET_KEY"
+set_minio_alias "minio-slave" "$MINIO2_URL" "$ACCESS_KEY" "$SECRET_KEY"
 
 # Create the buckets on minio1 using a for loop
 for bucket in "${BUCKETS[@]}"; do
-  create_bucket "minio1" "$bucket"
+  create_bucket "minio-master" "$bucket"
 done
 
 # Set up replication from minio1 to minio2
-mc admin replicate add minio1 minio2
+mc admin replicate add minio-master minio-slave
 
 echo "All tasks completed successfully."
