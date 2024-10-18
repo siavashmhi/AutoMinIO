@@ -1,6 +1,5 @@
-
-MINIO_CONSOLE_DOMAIN: console.cloudflow.ir
-MINIO_DOMAIN: minio.cloudflow.ir
+MINIO_CONSOLE_DOMAIN: console.cloudflow.ir # minio console domain
+MINIO_DOMAIN: minio.cloudflow.ir # minio api domain
 MINIO_BUCKETS: ("backup" "data" "database") # bucket names you want to created. 
 ROOT_USER: "siavash"
 ROOT_PASSWORD: "4YJ97rJviWDPJ2mTEGxsXT4e4kHRmh"
