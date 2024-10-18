@@ -8,12 +8,12 @@
 
 - name: Copy Docker Compose file
   template:
-    src: docker-compose.yml.j2
+    src: docker-compose.yml
     dest: /opt/minio/docker-compose.yml
 
 - name: Copy Docker Compose file
   template:
-    src: .env.j2
+    src: .env
     dest: /opt/minio/.env 
 
 - name: Create Docker network

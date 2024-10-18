@@ -1,12 +1,12 @@
 #!/bin/bash
 
 # Main variables
-ACCESS_KEY="{{ MINIO_ACCESS_KEY }}"
-SECRET_KEY="{{ MINIO_SECRET_KEY }}"
+ACCESS_KEY="{{ ROOT_USER }}"
+SECRET_KEY="{{ ROOT_PASSWORD }}"
 
 # URLs for MinIO endpoints
-MINIO1_URL="https://{{ MINIO1_API_SUB_DOMAIN }}.{{ DOMAIN_ADDR }}"
-MINIO2_URL="https://{{ MINIO2_API_SUB_DOMAIN }}.{{ DOMAIN_ADDR }}"
+MINIO1_URL="http://{{ hostvars[groups['minio-servers'][0]].ansible_host }}:9000"
+MINIO2_URL="http://{{ hostvars[groups['minio-servers'][1]].ansible_host }}:9000"
 
 # List of buckets to create
 BUCKETS={{ MINIO_BUCKETS }}
