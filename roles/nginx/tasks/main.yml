@@ -35,7 +35,7 @@
 # 6. Obtain SSL certificates using Certbot
 - name: Obtain SSL certificates for MinIO and MinIO Console
   command: >
-    certbot --nginx -d {{ MINIO_DOMAIN }} -d {{ MINIO_CONSOLE_DOMAIN }} --non-interactive --agree-tos --email siavash@gmail.com
+    certbot --nginx -d {{ MINIO_DOMAIN }} -d {{ MINIO_CONSOLE_DOMAIN }} --non-interactive --agree-tos --email {{ EMAIL_ADDRESS }}
   notify: restart nginx
 
 # 7. Configure NGINX with SSL for MinIO and Console
