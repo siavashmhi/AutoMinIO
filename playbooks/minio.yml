@@ -8,5 +8,4 @@
   roles:
     - { role: roles/preparing, become: True, tags: preparing }
     - { role: roles/docker, bcome: True, tags: docker_setup }
-    - { role: roles/traefik, bcome: True, tags: traefik_setup }
     - { role: roles/minio, become: True, tags: minio }
