@@ -54,7 +54,13 @@ EMAIL_ADDRESS: "siavash@gmail.com" # for get notification from let's encrypt
 ansible-playbook -i inventory/inventory.ini playbooks/minio.yml
 ```
 
-### Step 5: Run nginx.yml ansible playbook.
+### Step 5: set dns records for minio console and minio api.
+
+DNS Records should point to the load balancer server (nginx server). 
+
+![dns records](./images/dns-records.png "dns records")
+
+### Step 6: Run nginx.yml ansible playbook.
 
 This ansible playbook is for config your load balancer server.
 
@@ -65,3 +71,5 @@ ansible-playbook -i inventory/inventory.ini playbooks/nginx.yml
 ### After completing all the steps, you will see the MinIO console with your domain, for example, console.cloudflow.ir.
 
 ![minio console](./images/minio-console.png "minio console")
+
+![site replication](./images/replication.png "site replication")
