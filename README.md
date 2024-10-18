@@ -79,12 +79,12 @@ ansible-playbook -i inventory/inventory.ini playbooks/nginx.yml
 
 ![site replication](./images/replication.png "site replication")
 
-### Test Minio with upload fake data.
+### Step 7: Test Minio with upload fake data.
 
 You can test Minio service with upload fake data to one bucket in Minio.
 
-**Ensure Python is installed on your system.**
-**Ensure mc (minio client) is installed on your system.**
+1. **Ensure Python is installed on your system.**
+2. **Ensure mc (minio client) is installed on your system.**
 
 ```bash
 # install faker package for generate fake data.
