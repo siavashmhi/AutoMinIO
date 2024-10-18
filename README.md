@@ -10,6 +10,11 @@ This project provides an end-to-end automation solution using Ansible for deploy
 3. nginx: Used for load balancer.
 4. Bash Script (replication.sh): A custom script that configures the active-active replication between the two buckets in two MinIO instances, ensuring data synchronization across both sites.
 
+## Prerequisites
+
+1.  **Ansible:** Ensure Ansible is installed on your system.
+2.  **SSH:** You have to ssh access to your servers.
+
 ### Step 1: Clone the Repository
 
 To begin, clone this repository to your local machine:
