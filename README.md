@@ -75,8 +75,6 @@ ansible-playbook -i inventory/inventory.ini playbooks/nginx.yml
 
 ### After completing all the steps, you will see the MinIO console with your domain, for example, console.cloudflow.ir.
 
-![minio console](./images/minio-console.png "minio console")
-
 ![site replication](./images/replication.png "site replication")
 
 ### Step 7: Test Minio with upload fake data.
