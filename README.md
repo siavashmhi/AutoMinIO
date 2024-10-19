@@ -73,7 +73,7 @@ This ansible playbook is for config your load balancer server.
 ansible-playbook -i inventory/inventory.ini playbooks/nginx.yml
 ```
 
-### After completing all the steps, you will see the MinIO console with your domain, for example, console.cloudflow.ir.
+### After completing all the steps, you will see the MinIO console with your domain for example console.cloudflow.ir.
 
 ![site replication](./images/replication.png "site replication")
 
@@ -91,7 +91,6 @@ pip install Faker
 # Modify variables in script.py
 cat script.py
 
-# Configuration
 MINIO_ENDPOINT = "https://minio.cloudflow.ir"  # Change to your MinIO server endpoint
 ACCESS_KEY = "siavash"          # Replace with your MinIO access key
 SECRET_KEY = "4YJ97rJviWDPJ2mTEGxsXT4e4kHRmh"      # Replace with your MinIO secret key
