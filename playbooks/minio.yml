@@ -1,7 +1,5 @@
 ---
 - hosts: minio-servers
-  vars:
-    ansible_ssh_private_key_file: /Users/siavashmohseni/.ssh/id_rsa
   become: true
   gather_facts: true
   name: setup active-active replication minio with docker compose 
